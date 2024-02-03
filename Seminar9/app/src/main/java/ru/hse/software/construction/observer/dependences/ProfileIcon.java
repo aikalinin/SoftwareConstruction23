@@ -1,6 +1,5 @@
 package ru.hse.software.construction.observer.dependences;
 
-
 import ru.hse.software.construction.observer.dependences.model.Profile;
 import ru.hse.software.construction.observer.dependences.subject.Subject;
 

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package org.hse.software.construction.cinema;
+
+import "google/protobuf/timestamp.proto";
+
+service CinemaService {
+  rpc GetTickets (TicketsRequest) returns (stream TicketsResponse) {}
+}
+
+message TicketsRequest {
+  string cinemaName = 1;
+}
+
+message TicketsResponse {
+  google.protobuf.Timestamp date = 1;
+}

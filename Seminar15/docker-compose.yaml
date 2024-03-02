@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres'
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=cinema_user
+      - POSTGRES_PASSWORD=cinema_user
+      - POSTGRES_DB=cinema
+#  app:
+#    build:
+#      context: .
+#    ports:
+#      - "8080:8080"

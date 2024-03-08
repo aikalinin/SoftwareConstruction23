@@ -14,6 +14,7 @@ public class MainExecutorService {
                         0L,
                         TimeUnit.MILLISECONDS,
                         new LinkedBlockingQueue<>());
+        new ForkJoinPool();
 
 
         Runnable runnableTask = () -> {

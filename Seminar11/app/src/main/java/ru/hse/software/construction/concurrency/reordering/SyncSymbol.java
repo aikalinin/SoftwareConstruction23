@@ -7,8 +7,8 @@ import java.text.MessageFormat;
 
 public class SyncSymbol {
     public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 100; ++i) {
-            final SymbolHandler handler = new SymbolHandler();
+        for (int i = 0; i < 10000; ++i) {
+            final SyncSymbolHandler handler = new SyncSymbolHandler();
 
             final SymbolThread myThread1 = new SymbolThread() {
                 @Override
@@ -74,7 +74,9 @@ class SymbolHandler implements Handler {
     // 1 1 1 1 - a = 1 -> b = 1 -> a = b -> y = a -> x = b (один из возможных случаев)
     // 0 1 1 0 - a = 1 -> a = b -> b = 1 -> x -> x = b -> y = a (один из возможных случаев)
 
-    // Ideal: 0 1 0 0
+    // Sync updateB() -> updateA() -> Result: 1 1 1 0
+    // Sync updateA() -> updateB() -> Result: 0 1 0 0
+
     @Override
     public void updateA() {
         a = 1;
@@ -113,11 +115,13 @@ class SyncSymbolHandler implements Handler {
     @Override
     public synchronized void updateA() {
         a = 1;
-
         if (Thread.currentThread().getName().equals("MyThread1")) {
             Thread.yield();
         }
-
+        a = b;
+        if (Thread.currentThread().getName().equals("MyThread1")) {
+            Thread.yield();
+        }
         x = b;
     }
 
@@ -128,7 +132,6 @@ class SyncSymbolHandler implements Handler {
             if (Thread.currentThread().getName().equals("MyThread1")) {
                 Thread.yield();
             }
-
             y = a;
         }
     }

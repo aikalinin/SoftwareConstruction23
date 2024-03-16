@@ -1,0 +1,6 @@
+spring:
+  graphql:
+    path: /user/graphql
+    schema:
+      introspection:
+        enabled: true # true - клиент может автоматически выгружать схему с сервера

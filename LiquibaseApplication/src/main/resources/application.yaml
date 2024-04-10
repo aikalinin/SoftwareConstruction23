@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: LiquibaseApplication
+  datasource:
+    url: jdbc:postgresql://localhost:5432/liquibase
+    username: root
+    password: 123
+  liquibase:
+    change-log: classpath:/db/changelog/db.master.yaml

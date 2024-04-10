@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: person.sql
+  - include:
+      relativeToChangelogFile: true
+      file: human.yaml

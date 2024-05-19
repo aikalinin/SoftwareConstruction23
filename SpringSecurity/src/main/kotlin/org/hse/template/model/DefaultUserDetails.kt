@@ -12,7 +12,7 @@ class DefaultUserDetails(
     var id: UUID? = null,
     private var name: String,
     private var password: String,
-    var role: AuthorityType
+    private var role: AuthorityType
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(role)

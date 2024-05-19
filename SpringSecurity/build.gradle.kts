@@ -17,11 +17,13 @@ repositories {
 }
 
 val springdocOpenApi: String by project
+val jjwtVersion: String by project
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("io.jsonwebtoken:jjwt:$jjwtVersion")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenApi")
 

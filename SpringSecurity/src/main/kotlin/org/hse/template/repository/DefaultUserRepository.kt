@@ -6,5 +6,5 @@ import java.util.UUID
 
 interface DefaultUserRepository : CrudRepository<DefaultUserDetails, UUID> {
 
-    fun findByName(name: String): DefaultUserDetails
+    fun findByName(name: String): DefaultUserDetails?
 }

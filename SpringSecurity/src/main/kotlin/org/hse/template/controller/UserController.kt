@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("user")
-class DefaultController {
+class UserController {
 
     @GetMapping
     fun hello() = "Hello World"

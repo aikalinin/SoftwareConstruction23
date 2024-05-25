@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+<h1>Create a New Chat</h1>
+<form id="createChatForm">
+  <label for="chatName">Chat Name:</label>
+  <input type="text" id="chatName" name="chatName" required>
+  <button type="submit">Create Chat</button>
+</form>
+
+<script>
+  document.getElementById('createChatForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const chatName = document.getElementById('chatName').value;
+
+    fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name: chatName })
+    })
+    .then(response => response.json())
+    .then(data => {
+      window.location.href = `/getChat?chatId=${data.id}`;
+    })
+    .catch(error => console.error('Error:', error));
+  });
+</script>
+</body>
+</html>

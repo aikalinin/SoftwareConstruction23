@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+<h1>Get Chat by ID</h1>
+<form id="getChatForm">
+  <label for="chatId">Chat ID:</label>
+  <input type="text" id="chatId" name="chatId" required>
+  <button type="submit">Get Chat</button>
+</form>
+<div id="chatDetails" style="display: none;">
+  <h2>Chat Details</h2>
+  <p>Chat ID: <span id="chatIdDisplay"></span></p>
+  <p>Chat Name: <span id="chatName"></span></p>
+  <button id="connectButton">Connect to Chat</button>
+</div>
+
+<script>
+  document.getElementById('getChatForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const chatId = document.getElementById('chatId').value;
+
+    fetch(`/api/chat/${chatId}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('chatIdDisplay').textContent = data.id;
+      document.getElementById('chatName').textContent = data.name;
+      document.getElementById('chatDetails').style.display = 'block';
+    })
+    .catch(error => console.error('Error:', error));
+  });
+
+  document.getElementById('connectButton').addEventListener('click', function () {
+    const chatId = document.getElementById('chatIdDisplay').textContent;
+    window.location.href = `/connectChat?chatId=${chatId}`;
+  });
+</script>
+</body>
+</html>

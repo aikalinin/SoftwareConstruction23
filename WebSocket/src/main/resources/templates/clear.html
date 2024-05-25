@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Chat</title>
+  <style>
+    #messages {
+      border: 1px solid #ddd;
+      padding: 10px;
+      width: 300px;
+      height: 200px;
+      overflow-y: scroll;
+    }
+    .message {
+      margin: 5px 0;
+      padding: 5px;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+<h1>WebSocket Chat</h1>
+<div>
+  <input type="text" id="messageInput" placeholder="Enter your message">
+  <button onclick="sendMessage()">Send</button>
+</div>
+<div id="messages"></div>
+
+<script>
+  const socket = new WebSocket('ws://localhost.charlesproxy.com:8080/clear-socket');
+
+  socket.onopen = function(event) {
+    console.log('WebSocket connection created');
+  };
+
+  socket.onmessage = function(event) {
+    const messagesDiv = document.getElementById('messages');
+    const message = document.createElement('div');
+    message.textContent = 'Received message: ' + event.data;
+    message.className = 'message';
+    messagesDiv.appendChild(message);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  };
+
+  socket.onerror = function(event) {
+    console.error('Error WebSocket: ', event);
+  };
+
+  socket.onclose = function(event) {
+    if (event.wasClean) {
+      console.log('Connection closed');
+    } else {
+      console.error('Connection interrupted');
+    }
+    console.log('Code: ', event.code, ' reason: ', event.reason);
+  };
+
+  function sendMessage() {
+    const input = document.getElementById('messageInput');
+    const message = input.value;
+    socket.send(message);
+    input.value = '';
+  }
+</script>
+</body>
+</html>
